@@ -114,7 +114,7 @@ public class Home extends AppCompatActivity
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment, cards);
             fragmentTransaction.commit();
-            Toast.makeText(getApplicationContext(), "Capitals", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Cards", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
