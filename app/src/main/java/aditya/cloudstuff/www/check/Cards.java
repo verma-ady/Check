@@ -112,7 +112,8 @@ public class Cards extends Fragment {
                     rVadapter = (RVadapter) recyclerView.getAdapter();
                     dummyContent.addItem(new DummyContent.DummyItem(t, st ), 0);
                     recyclerView.setAdapter(rVadapter);
-                    Toast.makeText(getActivity(),"Refreshing List", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getActivity(),"Refreshing", Toast.LENGTH_SHORT).show();
                 }
 
             }
