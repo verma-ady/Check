@@ -15,18 +15,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
+        android:elevation="5dp"
         android:src="@android:drawable/sym_def_app_icon"
         android:id="@+id/imageView" />
 
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="My App"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:paddingTop="5dp"
+        android:text="States"
+        android:textColor="#ffffff"
+        android:layout_marginTop="2dp"
+        android:textSize="25sp"
+        android:elevation="5dp"  />
+    <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
 
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Let Start"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:textSize="15sp"
+        android:layout_marginTop="2dp"
+        android:elevation="5dp" />
 
 </LinearLayout>

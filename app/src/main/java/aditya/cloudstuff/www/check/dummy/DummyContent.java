@@ -30,8 +30,13 @@ public class DummyContent {
 //        addItem(new DummyItem("3", "Item 3"));
 //    }
 
-    public void addItem(DummyItem item) {
+    public void addItem(DummyItem item ) {
         ITEMS.add(item);
+        ITEM_MAP.put(item.id, item);
+    }
+
+    public void addItem(DummyItem item, int pos ) {
+        ITEMS.add(pos, item);
         ITEM_MAP.put(item.id, item);
     }
 

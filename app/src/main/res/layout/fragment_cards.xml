@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="aditya.cloudstuff.www.check.Cards"
+    android:background="#ffffff">
+
+    <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+    <!--<TextView android:layout_width="match_parent" android:layout_height="match_parent"-->
+        <!--android:text="@string/hello_blank_fragment" />-->
+    <include layout="@layout/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="140dp">
+    </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_title"
+            android:hint="Enter Title" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_subtitle"
+            android:hint="Enter Subtitle"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_below="@id/card_title"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_button"
+            android:text="Select"
+            android:layout_gravity="bottom"
+            android:layout_below="@id/card_subtitle"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

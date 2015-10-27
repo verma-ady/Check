@@ -75,10 +75,10 @@ public class CapitalFragment extends Fragment implements AbsListView.OnItemClick
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        dummyContent.addItem( new DummyContent.DummyItem("1", "Delhi"));
-        dummyContent.addItem( new DummyContent.DummyItem("2", "Mumbai"));
-        dummyContent.addItem( new DummyContent.DummyItem("3", "Kolkata"));
-        dummyContent.addItem( new DummyContent.DummyItem("4", "Bangalore"));
+        dummyContent.addItem( new DummyContent.DummyItem("1", "Delhi"), 0);
+        dummyContent.addItem( new DummyContent.DummyItem("2", "Mumbai"), 0);
+        dummyContent.addItem( new DummyContent.DummyItem("3", "Kolkata"), 0);
+        dummyContent.addItem( new DummyContent.DummyItem("4", "Bangalore"), 0);
 
         // TODO: Change Adapter to display your content
         mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),

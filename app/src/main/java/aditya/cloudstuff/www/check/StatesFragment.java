@@ -74,10 +74,10 @@ public class StatesFragment extends Fragment implements AbsListView.OnItemClickL
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        dummyContent.addItem( new DummyContent.DummyItem("1", "Delhi"));
-        dummyContent.addItem( new DummyContent.DummyItem("2", "Maharashtra"));
-        dummyContent.addItem( new DummyContent.DummyItem("3", "West Bengal"));
-        dummyContent.addItem(new DummyContent.DummyItem("4", "Andhra Pradesh"));
+        dummyContent.addItem( new DummyContent.DummyItem("1", "Delhi"), 0);
+        dummyContent.addItem( new DummyContent.DummyItem("2", "Maharashtra"), 0);
+        dummyContent.addItem( new DummyContent.DummyItem("3", "West Bengal"), 0);
+        dummyContent.addItem(new DummyContent.DummyItem("4", "Andhra Pradesh"), 0);
 
         // TODO: Change Adapter to display your content
         mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),

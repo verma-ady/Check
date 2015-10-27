@@ -23,6 +23,7 @@ public class Home extends AppCompatActivity
 
     StatesFragment statesFragment;
     CapitalFragment capitalFragment;
+    Cards cards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +108,15 @@ public class Home extends AppCompatActivity
             fragmentTransaction.commit();
             Toast.makeText(getApplicationContext(), "Capitals", Toast.LENGTH_SHORT).show();
         }
+        else if (id == R.id.nav_cards) {
+            cards = new Cards();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment, cards);
+            fragmentTransaction.commit();
+            Toast.makeText(getApplicationContext(), "Capitals", Toast.LENGTH_SHORT).show();
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
