@@ -88,7 +88,7 @@ public class Cards extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         startservice();
-
+//        Sync sync = new Sync(call, 10*1000);
         View view = inflater.inflate(R.layout.fragment_cards, container, false);
         button_select = (Button) view.findViewById(R.id.card_button);
         editText_title = (EditText) view.findViewById(R.id.card_title);
