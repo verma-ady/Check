@@ -1,13 +1,21 @@
 package aditya.cloudstuff.www.check;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -79,6 +87,8 @@ public class Cards extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        startservice();
+
         View view = inflater.inflate(R.layout.fragment_cards, container, false);
         button_select = (Button) view.findViewById(R.id.card_button);
         editText_title = (EditText) view.findViewById(R.id.card_title);
@@ -99,7 +109,35 @@ public class Cards extends Fragment {
         rVadapter = new RVadapter(dummyContent.ITEMS);
         recyclerView.setAdapter(rVadapter);
         buttonlistener();
+        cardlistener();
         return view;
+    }
+
+    public void cardlistener(){
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        String sid = dummyContent.ITEMS.get(position).id;
+                        String sname = dummyContent.ITEMS.get(position).content;
+                        notification(sid, sname);
+                        Toast.makeText(getActivity(), sid, Toast.LENGTH_SHORT ).show();
+                    }
+                })
+        );
+    }
+
+    public void notification ( String s1, String s2 ){
+        Intent intent = new Intent();
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(),0,intent,0);
+        Notification notification = new Notification.Builder(getActivity())
+                .setContentTitle(s1)
+                .setContentText(s2)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent).getNotification();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
     }
 
     public void buttonlistener(){
@@ -108,16 +146,27 @@ public class Cards extends Fragment {
             public void onClick(View v) {
                 String t = editText_title.getText().toString();
                 String st = editText_subtitle.getText().toString();
-                if( t.length()!=0 && st.length()!=0 ){
+                if (t.length() != 0 && st.length() != 0) {
                     rVadapter = (RVadapter) recyclerView.getAdapter();
-                    dummyContent.addItem(new DummyContent.DummyItem(t, st ), 0);
+                    dummyContent.addItem(new DummyContent.DummyItem(t, st), 0);
                     recyclerView.setAdapter(rVadapter);
+                    notification(st, t);
+                    Toast.makeText(getActivity(), "Refreshing", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getActivity(),"Refreshing", Toast.LENGTH_SHORT).show();
                 }
-
+                stopservice();
             }
         });
+    }
+
+    public void startservice(){
+        Intent intent = new Intent( getActivity(), MyService.class);
+        getActivity().startService(intent);
+    }
+
+    public void stopservice(){
+        Intent intent = new Intent( getActivity(), MyService.class);
+        getActivity().stopService(intent);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -162,9 +211,11 @@ public class Cards extends Fragment {
     public class RVadapter extends RecyclerView.Adapter<RVadapter.CardViewHolder> {
         DummyContent dummy = new DummyContent();
 
+
         public RVadapter( List<DummyContent.DummyItem> list_dummycontent ){
             dummy.ITEMS = list_dummycontent;
         }
+
 
         @Override
         public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

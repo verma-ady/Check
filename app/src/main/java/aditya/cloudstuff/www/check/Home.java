@@ -28,8 +28,8 @@ public class Home extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        statesFragment = new StatesFragment();
-        statesFragment.onAttach(getApplicationContext());
+        cards = new Cards();
+        cards.onAttach(getApplicationContext());
         setContentView(R.layout.home_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

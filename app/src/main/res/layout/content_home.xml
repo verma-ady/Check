@@ -13,7 +13,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="aditya.cloudstuff.www.check.StatesFragment"
+        android:name="aditya.cloudstuff.www.check.Cards"
         android:id="@+id/fragment"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
