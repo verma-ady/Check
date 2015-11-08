@@ -87,8 +87,7 @@ public class Cards extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        startservice();
-//        Sync sync = new Sync(call, 10*1000);
+        Sync sync = new Sync(call, 5000);
         View view = inflater.inflate(R.layout.fragment_cards, container, false);
         button_select = (Button) view.findViewById(R.id.card_button);
         editText_title = (EditText) view.findViewById(R.id.card_title);
@@ -126,6 +125,26 @@ public class Cards extends Fragment {
         );
     }
 
+    final private Runnable call = new Runnable() {
+        @Override
+        public void run() {
+            Long time = System.currentTimeMillis();
+            Log.v("Check", "runnable  " + time.toString());
+//            Toast.makeText(getActivity(), "Check for every 5 Secs", Toast.LENGTH_SHORT).show();
+            handler.postDelayed(call, 5000);
+        }
+    };
+
+    public final Handler handler = new Handler();
+    public class Sync{
+        Runnable task;
+        public Sync ( Runnable runnable, long time ){
+            this.task = runnable;
+            handler.removeCallbacks(task);
+            handler.postDelayed(runnable, time);
+        }
+    }
+
     public void notification ( String s1, String s2 ){
         Intent intent = new Intent();
         PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(),0,intent,0);
@@ -154,7 +173,6 @@ public class Cards extends Fragment {
                     Toast.makeText(getActivity(), "Refreshing", Toast.LENGTH_SHORT).show();
 
                 }
-                stopservice();
             }
         });
     }
