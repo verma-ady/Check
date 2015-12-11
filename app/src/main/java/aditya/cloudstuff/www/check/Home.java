@@ -1,12 +1,11 @@
 package aditya.cloudstuff.www.check;
 
-
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,12 +23,14 @@ public class Home extends AppCompatActivity
     StatesFragment statesFragment;
     CapitalFragment capitalFragment;
     Cards cards;
+    student_profile studentProfile;
+    webview webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cards = new Cards();
-        cards.onAttach(getApplicationContext());
+        studentProfile = new student_profile();
+        studentProfile.onAttach(getApplicationContext());
         setContentView(R.layout.home_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -55,13 +56,50 @@ public class Home extends AppCompatActivity
     }
 
     @Override
+    protected void onStart() {
+        Log.v("MyApp", "onStart() Home");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.v("MyApp", "onResume() Home");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.v("MyApp", "onPause() Home");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.v("MyApp", "onStop() Home");
+        super.onStop();
+    }
+
+    @Override
+    public void finish() {
+        Log.v("MyApp", "finish() Home");
+        super.finish();
+    }
+
+    @Override
     public void onBackPressed() {
+        Log.v("MyApp", "onBackPressed() Home");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.v("MyApp", "onDestroy() Home");
+        super.onDestroy();
     }
 
     @Override
@@ -86,6 +124,8 @@ public class Home extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -101,10 +141,10 @@ public class Home extends AppCompatActivity
 
             Toast.makeText(getApplicationContext(), "States", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_capitals) {
-            capitalFragment = new CapitalFragment();
+            studentProfile = new student_profile();
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment, capitalFragment);
+            fragmentTransaction.replace(R.id.fragment, studentProfile);
             fragmentTransaction.commit();
             Toast.makeText(getApplicationContext(), "Capitals", Toast.LENGTH_SHORT).show();
         }
@@ -112,9 +152,27 @@ public class Home extends AppCompatActivity
             cards = new Cards();
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment, cards);
+            fragmentTransaction.replace(R.id.fragment, cards );
             fragmentTransaction.commit();
             Toast.makeText(getApplicationContext(), "Cards", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (id == R.id.nav_webview) {
+            webView = new webview();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment,webView );
+            fragmentTransaction.commit();
+            Toast.makeText(getApplicationContext(), "WebView", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (id == R.id.nav_signout) {
+            Toast.makeText(getApplicationContext(), "Signing Out", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, login.class);
+            intent.putExtra("LogOut", true );
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

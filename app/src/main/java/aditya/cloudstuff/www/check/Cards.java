@@ -1,10 +1,12 @@
 package aditya.cloudstuff.www.check;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -52,6 +54,8 @@ public class Cards extends Fragment {
     Button button_select;
     EditText editText_title, editText_subtitle;
     RVadapter rVadapter;
+
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -119,10 +123,28 @@ public class Cards extends Fragment {
                         String sid = dummyContent.ITEMS.get(position).id;
                         String sname = dummyContent.ITEMS.get(position).content;
                         notification(sid, sname);
-                        Toast.makeText(getActivity(), sid, Toast.LENGTH_SHORT ).show();
+                        alert();
+//                        Toast.makeText(getActivity(), sid, Toast.LENGTH_SHORT ).show();
                     }
                 })
         );
+    }
+
+    public void alert(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity())
+                .setMessage("Write your message here." + '\n' + "Check it" )
+                .setCancelable(true).setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = builder1.show();
     }
 
     final private Runnable call = new Runnable() {

@@ -12,5 +12,11 @@
         <item android:id="@+id/nav_cards"
             android:icon="@android:drawable/ic_menu_gallery"
             android:title="Cards" />
+        <item android:id="@+id/nav_webview"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="Webview" />
+        <item android:id="@+id/nav_signout"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="Sign Out" />
     </group>
 </menu>
