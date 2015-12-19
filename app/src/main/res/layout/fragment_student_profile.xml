@@ -1,0 +1,306 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="aditya.cloudstuff.www.check.student_profile"
+    android:background="#ffffff">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearlayout_header"
+        android:background="#E0E0E0">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/icon_swift_intern"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_name"
+                android:text="Aditya Verma"
+                android:textSize="25sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_info"
+                android:text="adysept@gmail.com"
+                android:textSize="15sp"
+                android:textColor="#757575"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@+id/edittext_name"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:scrollbars="vertical">
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative_personal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_personal"
+            android:text="Personal Info"
+            android:textStyle=""
+            android:textColor="#6D4C41"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:textSize="15sp"/>
+
+        <View
+            android:layout_width="98dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="3dp"
+            android:layout_below="@id/text_personal"
+            android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_name"
+            android:orientation="horizontal"
+            android:layout_below="@+id/text_personal">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_name"
+                android:text="Name : "
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_username"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:text="Aditya Verma"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_age"
+            android:orientation="horizontal"
+            android:layout_below="@+id/linear_name">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_age"
+                android:text="Age : "
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_age_name"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:text="19 years"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_location"
+            android:orientation="horizontal"
+            android:layout_below="@+id/linear_age">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_location"
+                android:text="Location : "
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_address_name"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:text="New Delhi"
+                />
+
+        </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relative_professional">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_professional"
+                android:text="Professional Info"
+                android:textColor="#6D4C41"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:textSize="15sp"/>
+
+            <View
+                android:layout_width="98dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="3dp"
+                android:layout_below="@id/text_professional"
+                android:background="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linear_organisation"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text_professional">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_organisation"
+                    android:text="Organisation : "
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_organisation_name"
+                    android:textSize="20sp"
+                    android:layout_marginTop="5dp"
+                    android:text="Delhi Technological University"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linear_email"
+                android:orientation="horizontal"
+                android:layout_below="@+id/linear_organisation">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_email"
+                    android:text="Email : "
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_email_name"
+                    android:textSize="20sp"
+                    android:layout_marginTop="5dp"
+                    android:text="adysept@gmail.com"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linear_experience"
+                android:orientation="horizontal"
+                android:layout_below="@+id/linear_email">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_experience"
+                    android:text="Experience : "
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_experience_name"
+                    android:textSize="20sp"
+                    android:layout_marginTop="5dp"
+                    android:text="Fresher"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linear_profile"
+                android:orientation="horizontal"
+                android:layout_below="@+id/linear_experience">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_profile"
+                    android:text="Profile : "
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_profile_name"
+                    android:textSize="20sp"
+                    android:layout_marginTop="5dp"
+                    android:text="Android Developer"
+                    />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

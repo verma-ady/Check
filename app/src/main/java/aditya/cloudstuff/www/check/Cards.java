@@ -2,6 +2,7 @@ package aditya.cloudstuff.www.check;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,12 +10,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,6 +29,32 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import aditya.cloudstuff.www.check.dummy.DummyContent;
@@ -91,7 +121,7 @@ public class Cards extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Sync sync = new Sync(call, 5000);
+//        Sync sync = new Sync(call, 5000);
         View view = inflater.inflate(R.layout.fragment_cards, container, false);
         button_select = (Button) view.findViewById(R.id.card_button);
         editText_title = (EditText) view.findViewById(R.id.card_title);
@@ -123,11 +153,80 @@ public class Cards extends Fragment {
                         String sid = dummyContent.ITEMS.get(position).id;
                         String sname = dummyContent.ITEMS.get(position).content;
                         notification(sid, sname);
-                        alert();
+//                        volley_JSON_array("https://api.github.com/users/verma-ady/repos");
+//                        volley_JSON_object("http://swiftintern.com/home.json");
+                        UploadFile();
+//                        alert();
 //                        Toast.makeText(getActivity(), sid, Toast.LENGTH_SHORT ).show();
                     }
                 })
         );
+    }
+
+    private static String encodeFileToBase64Binary(File fileName) throws IOException {
+        byte[] bytes = new byte[(int)fileName.length()];
+        FileInputStream fileInputStream = new FileInputStream(fileName);
+        fileInputStream.read(bytes);
+        fileInputStream.close();
+//        byte[] encoded = Base64.encodeBase64(bytes, Base64.DEFAULT);
+        String encode = Base64.encodeToString(bytes, Base64.DEFAULT);
+//        String encodedString = new String(encoded);
+        Log.v("MyApp", encode);
+        return encode;
+    }
+
+    public void UploadFile(){
+        Log.v("MyApp", "Uploadfile()");
+        try {
+            // Set your file path here
+            Log.v("MyApp", "File Dir : " + Environment.getExternalStorageDirectory().toString()+"/Check.pdf" );
+//            FileInputStream file = new FileInputStream(Environment.getExternalStorageDirectory().toString()+"/Check.pdf");
+            File file = new File(Environment.getExternalStorageDirectory().toString()+"/Check.pdf");
+            // Set your server page url (and the file title/description)
+
+            String encode = encodeFileToBase64Binary(file);
+
+            HTTPFileUpload hfu = new HTTPFileUpload("http://www.swiftintern.com/app/upload", "check","check", encode);
+
+            hfu.Send_Now();
+
+        } catch (FileNotFoundException e ) {
+            Log.v("MyApp", "File Not Found");
+            // Error: File not found
+        } catch (IOException e ){
+            Log.v("MyApp", "IOException");
+        }
+    }
+
+    public void volley_JSON_array(String url) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.v("MyApp", "response : " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("MyApp", "error : " + error.toString());
+            }
+        });
+
+        Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
+    }
+
+    public void volley_JSON_object(String url) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.v("MyApp", "response : " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("MyApp", "error : " + error.toString());
+            }
+        });
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
 
     public void alert(){
@@ -147,25 +246,25 @@ public class Cards extends Fragment {
         AlertDialog alertDialog = builder1.show();
     }
 
-    final private Runnable call = new Runnable() {
-        @Override
-        public void run() {
-            Long time = System.currentTimeMillis();
-            Log.v("Check", "runnable  " + time.toString());
-//            Toast.makeText(getActivity(), "Check for every 5 Secs", Toast.LENGTH_SHORT).show();
-            handler.postDelayed(call, 5000);
-        }
-    };
+//    final private Runnable call = new Runnable() {
+//        @Override
+//        public void run() {
+//            Long time = System.currentTimeMillis();
+//            Log.v("Check", "runnable  " + time.toString());
+////            Toast.makeText(getActivity(), "Check for every 5 Secs", Toast.LENGTH_SHORT).show();
+//            handler.postDelayed(call, 5000);
+//        }
+//    };
 
-    public final Handler handler = new Handler();
-    public class Sync{
-        Runnable task;
-        public Sync ( Runnable runnable, long time ){
-            this.task = runnable;
-            handler.removeCallbacks(task);
-            handler.postDelayed(runnable, time);
-        }
-    }
+//    public final Handler handler = new Handler();
+//    public class Sync{
+//        Runnable task;
+//        public Sync ( Runnable runnable, long time ){
+//            this.task = runnable;
+//            handler.removeCallbacks(task);
+//            handler.postDelayed(runnable, time);
+//        }
+//    }
 
     public void notification ( String s1, String s2 ){
         Intent intent = new Intent();
@@ -248,6 +347,26 @@ public class Cards extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    public void alert(String enddate, String oppurtunity, String organisation){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity())
+                .setMessage("Organisation : " + organisation + '\n' +
+                        "Oppurtunities are : " + oppurtunity + '\n' + "Last Date : " + enddate  )
+                .setCancelable(true).setPositiveButton("Apply",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                //code to take user to apply page
+                            }
+                        }).setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                //nothing to do here
+                            }
+                        });
+        AlertDialog alertDialog = builder1.show();
+    }
+
     public class RVadapter extends RecyclerView.Adapter<RVadapter.CardViewHolder> {
         DummyContent dummy = new DummyContent();
 
@@ -264,6 +383,8 @@ public class Cards extends Fragment {
             CardViewHolder cardViewHolder = new CardViewHolder(view);
             return cardViewHolder;
         }
+
+
 
         @Override
         public void onBindViewHolder(CardViewHolder holder, int position) {
@@ -292,5 +413,12 @@ public class Cards extends Fragment {
             }
         }
     }
+
+    String urlParameterskey="email";
+    String urlParametersValue = "mkv241064@gmail.com";
+
+
+
+
 
 }
